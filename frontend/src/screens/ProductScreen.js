@@ -1,14 +1,27 @@
-import React from 'react'
-import { Link ,useParams} from 'react-router-dom'
-//add useParems because we need react newest version than tutorial 
+import React, {useState,useEffect} from 'react'
+import { Link, useParams } from "react-router-dom";
+//add useParems because we use react newest version than tutorial 
 import {Row ,Col,Image,ListGroup,Button,Card} from 'react-bootstrap'
 import Rating from '../components/Rating'
-import products from '../products'
+import axios from 'axios'
 
 
-const ProductScreen =()=> {
-    const params = useParams();
-    const product = products.find((p) => p._id === params.id);
+function ProductScreen({ match }) {
+    const productId = useParams();
+   
+    const [product, setProduct] = useState([]);
+   
+    useEffect(() => {
+      async function fetchProduct() {
+        const { data } = await axios.get(`/api/products/${productId.id}`);
+        setProduct(data);
+      }
+     
+      fetchProduct()
+  
+    },[])
+
+
     return (
         <div>
             <Link to='/' className='btn btn-light my-3'>Go Back </Link>
@@ -53,7 +66,7 @@ const ProductScreen =()=> {
                                 <Row>
                                     <Col>Status:</Col>
                                     <Col>
-                                        {product.countInStock > 0 ? 'In Stiock' : 'Out of Stock'}
+                                        {product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
