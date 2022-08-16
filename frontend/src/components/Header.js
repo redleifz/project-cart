@@ -8,7 +8,7 @@ const Header = () => {
 
     <Container fluid>
       <LinkContainer to='/'>
-        <Navbar.Brand>Jongjate Shop</Navbar.Brand>
+        <Navbar.Brand className=''>Jongjate Shop</Navbar.Brand>
       </LinkContainer>
         
       <Navbar.Toggle aria-controls="navbarScroll" />
